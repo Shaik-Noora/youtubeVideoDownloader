@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" /> 
+    <title>Download YouTube Video</title>
+</head>
+<body>
+    <form id="downloadForm" class="cont">
+        <label for="link" class="headline">Simplified YouTube Video Downloading Online</label>
+        <div class="horizontal">
+        <input type="text" id="link" name="link" required placeholder="Paste Your Video URL Here..." class="inp">
+        
+        <button type="submit" class="buttonn">Download Video</button>
+    </div>
+        <h1 class="headline">Follow The Below Steps to Download Your Favourite Videos</h1>
+        <ol class="li">
+            <li class='size'>Navigate to YouTube.com and select the video you wish to download for offline viewing.
+            </li>
+            <li class='size'>Opt for your desired download format, including popular choices like MP3, MP4, WEBM, or 3GP.
+            </li>
+            <li class='size'>Initiate the download process by clicking the "Download" button.
+            </li>
+            <li class='size'>Enjoy uninterrupted access to your favorite videos and playlists offline! This method is perfectly compatible with major browsers such as Chrome, Firefox, and others.</li>
+        </ol>
+    </form>
+
+    <script>
+        document.getElementById('downloadForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+
+            fetch('http://localhost:8000/download', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        };
+    </script>
+</body>
+</html>
